@@ -3,6 +3,8 @@ name: Issue similarity
 on:
     issues:
         types: [opened, reopened, edited]
+    issue_comment:
+        types: [created, deleted]
 
 jobs:
     similarity:
