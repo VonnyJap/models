@@ -13,7 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run when labeled
-        if: contains(github.event.issue.labels.*.name, 'bug')
-        run: |
-          echo "This workflow runs when the issue is labeled with 'bug'"
+      - name: Run similarity when labeled
+        if: contains(github.event.issue.labels.*.name, 'question')
+        uses: actions-cool/issues-similarity-analysis@main
+        with:
+          filter-threshold: 0.5
+          title-excludes: "bug, not, 1234"
+          comment-title: "### See"
+          comment-body: "${index}. ${similarity} #${number}"
