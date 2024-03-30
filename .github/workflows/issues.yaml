@@ -4,6 +4,7 @@ on:
   issues:
     types:
       - labeled
+      - opened
 
 jobs:
   build:
@@ -14,10 +15,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run similarity when labeled
-        if: (github.event_name == 'labeled' && github.event.label.name == 'question') || github.event_name == 'opened'
+        if: (github.event_name == 'labeled' && github.event.label.name == 'question') || (github.event_name == 'opened')
         uses: actions-cool/issues-similarity-analysis@main
         with:
           filter-threshold: 0.5
           title-excludes: "bug, not, 1234"
-          comment-title: "### See"
+          comment-title: "### Similar issues"
           comment-body: "${index}. ${similarity} #${number}"
